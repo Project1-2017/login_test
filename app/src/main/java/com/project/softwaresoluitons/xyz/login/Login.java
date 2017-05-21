@@ -98,6 +98,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
     //This function will option signing intent
     private void signIn() {
+
         //Creating an intent
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 
@@ -120,10 +121,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     //After the signing we are calling this function
     private void handleSignInResult(GoogleSignInResult result) {
         //If the login succeed
+        dialog.dismiss();
         if (result.isSuccess()) {
             //Getting google account
             GoogleSignInAccount acct = result.getSignInAccount();
-
+            Toast.makeText(this, "Login Success", Toast.LENGTH_LONG).show();
         } else {
             //If login fails
             Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
@@ -134,6 +136,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     public void onClick(View v) {
         if (v == google_login) {
             //Calling signin
+            dialog = new ProgressDialog(this);
+            dialog.setMessage("Please wait !!");
+            dialog.show();
             signIn();
         }
         if(v==l_button){
